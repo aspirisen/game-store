@@ -12,21 +12,24 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { CartStorageProvider } from "core/CartStorage";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Switch>
-        <Route path="/list">
-          <GameListPage />
-        </Route>
+      <CartStorageProvider>
+        <Switch>
+          <Route path="/list">
+            <GameListPage />
+          </Route>
 
-        <Route path="/checkout">
-          <CheckoutPage />
-        </Route>
+          <Route path="/checkout">
+            <CheckoutPage />
+          </Route>
 
-        <Redirect from="*" to="/list" />
-      </Switch>
+          <Redirect from="*" to="/list" />
+        </Switch>
+      </CartStorageProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

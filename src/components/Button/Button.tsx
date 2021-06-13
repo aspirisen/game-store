@@ -1,7 +1,7 @@
 import React, { memo, FC, ReactNode } from "react";
 import "./styles.css";
 
-const Button: FC<{
+export const Button: FC<{
   onClick: () => void;
   children: any;
   variant: "link" | "secondary" | "primary";
@@ -38,4 +38,4 @@ const Button: FC<{
   );
 };
 
-export default memo(Button);
+export default Button;
