@@ -5,6 +5,8 @@ export type Cart = Record<string, number>;
 
 export interface CartStorageState {
   items: Cart;
+  currency: models.Currency | undefined;
+  setCurrency: (currency: models.Currency | undefined) => void;
   totalItems: number;
   addItem: (game: models.Game) => void;
   removeItem: (game: models.Game) => void;
@@ -12,6 +14,9 @@ export interface CartStorageState {
 
 export function CartStorageProvider(props: React.PropsWithChildren<{}>) {
   const [items, setItems] = React.useState<Cart>({});
+  const [currency, setCurrency] = React.useState<models.Currency | undefined>(
+    undefined
+  );
 
   const addItem = React.useCallback<CartStorageState["addItem"]>((game) => {
     setItems((prevItems) => {
@@ -45,8 +50,8 @@ export function CartStorageProvider(props: React.PropsWithChildren<{}>) {
   const totalItems = React.useMemo(() => Object.keys(items).length, [items]);
 
   const value = React.useMemo(
-    () => ({ items, addItem, totalItems, removeItem }),
-    [addItem, items, totalItems, removeItem]
+    () => ({ items, addItem, totalItems, currency, setCurrency, removeItem }),
+    [addItem, items, totalItems, currency, setCurrency, removeItem]
   );
 
   return (

@@ -1,11 +1,11 @@
 import React, { memo } from "react";
 import { useRequest } from "core/useRequest";
-import { fetchGames } from "api/requests";
+import { queryGames } from "api/requests";
 import Layout from "../../components/Layout/Layout";
 import { GameTile } from "components/GameTile";
 
 const GameListPage = memo(() => {
-  const [games, { isLoading }] = useRequest(fetchGames);
+  const [games, { isLoading }] = useRequest(queryGames);
 
   return (
     <Layout title="Games">

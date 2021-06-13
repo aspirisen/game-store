@@ -10,6 +10,7 @@ export interface GameTileProps {
 
 export function GameTile(props: GameTileProps) {
   const cart = React.useContext(CartStorage);
+  const price = props.game.price * (cart.currency?.rate ?? 1);
 
   return (
     <div
@@ -30,7 +31,9 @@ export function GameTile(props: GameTileProps) {
 
       <div>
         <h2 style={{ fontSize: 12 }}>{props.game.name}</h2>
-        <div>{props.game.price}</div>
+        <div>
+          Price: {price.toFixed(2)} {cart.currency?.symbol}
+        </div>
         <div>{props.game.releaseDate}</div>
         <div>{props.game.tags.join()}</div>
 

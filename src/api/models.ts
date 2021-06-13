@@ -7,3 +7,9 @@ export interface Game {
   releaseDate: Date;
   price: number;
 }
+
+export interface Currency {
+  name: string;
+  symbol: string;
+  rate: number;
+}

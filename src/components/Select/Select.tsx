@@ -1,18 +1,20 @@
 import React, { FC, memo } from "react";
 import "./styles.css";
 
-const Select: FC<{
+export interface SelectProps {
   value: any;
-  onChange: any;
+  onChange: React.SelectHTMLAttributes<HTMLSelectElement>["onChange"];
   options: {
     label: string;
     value: any;
   }[];
-}> = ({ value, onChange, options }) => {
+}
+
+const Select: FC<SelectProps> = ({ value, onChange, options }) => {
   return (
     <select className="Select-container" value={value} onChange={onChange}>
       {options.map((option, index) => (
-        <option key={option.value + index} value={option.label}>
+        <option key={option.value + index} value={option.value}>
           {option.label}
         </option>
       ))}
