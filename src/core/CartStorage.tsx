@@ -5,6 +5,7 @@ export type Cart = Record<string, number>;
 
 export interface CartStorageState {
   items: Cart;
+  totalItems: number;
   addItem: (game: models.Game) => void;
   removeItem: (game: models.Game) => void;
 }
@@ -41,9 +42,11 @@ export function CartStorageProvider(props: React.PropsWithChildren<{}>) {
     []
   );
 
+  const totalItems = React.useMemo(() => Object.keys(items).length, [items]);
+
   const value = React.useMemo(
-    () => ({ items, addItem, removeItem }),
-    [addItem, items, removeItem]
+    () => ({ items, addItem, totalItems, removeItem }),
+    [addItem, items, totalItems, removeItem]
   );
 
   return (

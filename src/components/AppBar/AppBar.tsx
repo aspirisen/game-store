@@ -1,6 +1,7 @@
 import Select from "./../Select/Select";
 import React, { memo, FC } from "react";
 import Button from "./../Button/Button";
+import { CartStorage } from "core/CartStorage";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as Cart } from "./../../assets/icons/cart.svg";
 import { ReactComponent as ArrowBack } from "./../../assets/icons/arrow-back.svg";
@@ -15,6 +16,7 @@ export type AppBarProps = {
 };
 
 const AppBar: FC<AppBarProps> = memo(({ title, backButton }) => {
+  const cart = React.useContext(CartStorage);
   const history = useHistory();
   const handleOnChangeCurrency = console.log;
 
@@ -41,6 +43,7 @@ const AppBar: FC<AppBarProps> = memo(({ title, backButton }) => {
             onClick={() => history.push("/checkout")}
           >
             CHECKOUT
+            {cart.totalItems > 0 && <span>{cart.totalItems}</span>}
           </Button>
         </div>
 
