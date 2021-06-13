@@ -1,4 +1,4 @@
-import React, { memo, FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import "./styles.css";
 
 export const Button: FC<{
