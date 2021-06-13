@@ -1,0 +1,45 @@
+.AppBar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  display: flex;
+  background-color: #101320;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 38px;
+}
+
+.AppBar-Title-contianer {
+  display: flex;
+  flex-direction: column;
+}
+
+.AppBar-Title-label {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 32px;
+}
+
+.AppBar-Actions-container {
+  display: flex;
+  align-items: center;
+}
+
+.AppBar-Actions-Item-container {
+  padding-left: 32px;
+}
+
+.AppBar-BackButton-label {
+  color: #14f0af;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 18px;
+  cursor: pointer;
+}
+
+.AppBar-BackButton-icon {
+  padding-right: 4px;
+}

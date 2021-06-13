@@ -1,0 +1,55 @@
+.Button-base {
+  font-size: 14px;
+  line-height: 18px;
+  color: inherit;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+}
+
+.Button-base:hover {
+  background-color: #282b40;
+}
+
+/* Vairants */
+.Button-link {
+  background-color: transparent;
+}
+
+.Button-secondary {
+  text-transform: uppercase;
+}
+
+.Button-primary {
+  text-transform: uppercase;
+}
+
+.Button-fullWidth {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Colors */
+.Button-colorPrimary {
+  color: #f5f5f5;
+}
+
+.Button-colorSecondary {
+  color: #14f0af;
+}
+
+/* Icon */
+.Button-icon {
+  padding-right: 8px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

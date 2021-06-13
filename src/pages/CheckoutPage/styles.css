@@ -1,0 +1,21 @@
+.CheckoutPage-container {
+  display: flex;
+}
+
+.CheckoutPage-GameList-container {
+  flex-grow: 1;
+}
+
+.CheckoutPage-Overview-container {
+  background-color: #1e2131;
+  border-radius: 16px;
+  padding: 32px;
+  width: 420px;
+  flex-shrink: 0;
+}
+
+.CheckoutPage-Divider {
+  border: none;
+  border-top: 1px solid #2f344b;
+  margin: 42px 0;
+}
