@@ -4,6 +4,7 @@ import { Button } from "ui-kit/Button/Button";
 import { Icon } from "ui-kit/Icon";
 import { CartStorage } from "core/CartStorage";
 import { useHistory } from "react-router-dom";
+import css from "./AppBar.module.css";
 import "./styles.css";
 
 export interface BackButton {
@@ -51,7 +52,6 @@ export function AppBar(props: AppBarProps) {
             onClick={props.backButton.onClick}
           >
             <Icon className="AppBar-BackButton-icon" name="ArrowBack" />
-
             {props.backButton.text}
           </div>
         )}
@@ -66,7 +66,14 @@ export function AppBar(props: AppBarProps) {
             onClick={() => history.push("/checkout")}
           >
             CHECKOUT
-            {cart.totalItems > 0 && <span>{cart.totalItems}</span>}
+            <span
+              className={[
+                css.checkoutBadge,
+                cart.totalItems <= 0 && css.checkoutBadgeInvisible,
+              ].join(" ")}
+            >
+              {cart.totalItems}
+            </span>
           </Button>
         </div>
 
