@@ -1,7 +1,8 @@
 import { Server } from "miragejs";
 import { games } from "./games";
 
-let server = new Server();
+let server = new Server({});
+server.logging = false;
 
 server.get("/api/games", { games });
 

@@ -11,12 +11,12 @@ import { CheckoutGame } from "./CheckoutGame";
 import "./styles.css";
 
 export function CheckoutPage() {
-  const [games] = useRequest(queryGames);
+  const [games, { isLoading }] = useRequest(queryGames);
   const cart = React.useContext(CartStorage);
   const price = usePrice();
   const history = useHistory();
 
-  const totalItems = Object.values(cart.items).reduce(
+  const totalQuantity = Object.values(cart.items).reduce(
     (total, quantity) => total + quantity,
     0
   );
@@ -43,29 +43,40 @@ export function CheckoutPage() {
         onClick: () => history.push("/list"),
       }}
     >
-      <div className="CheckoutPage-container">
-        <div className="CheckoutPage-GameList-container">
-          {Object.entries(cart.items).map(([id]) => (
-            <CheckoutGame games={games} id={id} />
-          ))}
+      {isLoading ? (
+        "loading"
+      ) : (
+        <div
+          className="CheckoutPage-container"
+          data-testid="checkout-page-container"
+        >
+          <div className="CheckoutPage-GameList-container">
+            {Object.entries(cart.items).map(([id]) => (
+              <CheckoutGame key={id} games={games} id={id} />
+            ))}
+          </div>
+
+          <div className="CheckoutPage-Overview-container">
+            <div data-testid="checkout-page-container-total-items">
+              Total items: {totalQuantity}
+            </div>
+            <div data-testid="checkout-page-container-order-value">
+              Order value: {price.format(orderValue)}
+            </div>
+
+            <hr className="CheckoutPage-Divider" />
+
+            <Button
+              variant="link"
+              color="secondary"
+              fullWidth
+              onClick={() => history.push("/")}
+            >
+              Back to overview
+            </Button>
+          </div>
         </div>
-
-        <div className="CheckoutPage-Overview-container">
-          <div>Total items: {totalItems}</div>
-          <div>Order value: {price.format(orderValue)}</div>
-
-          <hr className="CheckoutPage-Divider" />
-
-          <Button
-            variant="link"
-            color="secondary"
-            fullWidth
-            onClick={() => history.push("/")}
-          >
-            Back to overview
-          </Button>
-        </div>
-      </div>
+      )}
     </Layout>
   );
 }

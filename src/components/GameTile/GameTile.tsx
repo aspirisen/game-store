@@ -17,7 +17,7 @@ export function GameTile(props: GameTileProps) {
   const cartItem = cart.items[props.game.id];
 
   return (
-    <div className={css.gameTile}>
+    <div className={css.gameTile} data-testid="game-tile">
       <div className={css.highlights}>
         <img src={props.game.artworkUrl} alt="artwork" className={css.avatar} />
         <Stars stars={props.game.rating} />

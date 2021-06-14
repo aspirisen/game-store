@@ -12,7 +12,7 @@ export function GameListPage() {
       {isLoading ? (
         "loading"
       ) : (
-        <div className={css.list}>
+        <div className={css.list} data-testid="games-list">
           {games?.map((game) => (
             <div key={game.id} className={css.gameTileWrapper}>
               <GameTile key={game.id} game={game} />
