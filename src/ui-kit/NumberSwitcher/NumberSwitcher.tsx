@@ -17,7 +17,7 @@ export function NumberSwitcher(props: NumberSwitcherProps) {
         color="secondary"
         onClick={() => props.onChange("decrease")}
       />
-      <span>{props.value}</span>
+      <span className={css.currentValue}>{props.value}</span>
       <Button
         icon="Plus"
         variant="secondary"

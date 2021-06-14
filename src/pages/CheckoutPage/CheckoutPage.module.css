@@ -1,0 +1,7 @@
+.game {
+  margin-bottom: 10px;
+}
+
+.game:last-child {
+  margin-bottom: none;
+}
