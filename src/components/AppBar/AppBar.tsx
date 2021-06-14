@@ -1,53 +1,58 @@
-import Select, { SelectProps } from "./../Select/Select";
-import React, { memo, FC } from "react";
-import Button from "./../Button/Button";
+import * as React from "react";
+import { Select, SelectProps } from "ui-kit/Select/Select";
+import { Button } from "ui-kit/Button/Button";
+import { Icon } from "ui-kit/Icon";
 import { CartStorage } from "core/CartStorage";
 import { useHistory } from "react-router-dom";
-import { ReactComponent as Cart } from "./../../assets/icons/cart.svg";
-import { ReactComponent as ArrowBack } from "./../../assets/icons/arrow-back.svg";
 import "./styles.css";
-import { useRequest } from "core/useRequest";
-import { queryCurrencyRates } from "api/requests";
 
-export type AppBarProps = {
+export interface BackButton {
+  onClick: () => void;
+  text: string;
+}
+
+export interface AppBarProps {
   title: string;
-  backButton?: {
-    onClick: () => void;
-    text: string;
-  };
-};
+  backButton?: BackButton;
+}
 
-const AppBar: FC<AppBarProps> = memo(({ title, backButton }) => {
+export function AppBar(props: AppBarProps) {
   const cart = React.useContext(CartStorage);
-  const [rates] = useRequest(queryCurrencyRates);
+
   const history = useHistory();
 
-  const handleOnChangeCurrency = React.useCallback<
-    Exclude<SelectProps["onChange"], undefined>
-  >(
-    (e) => {
-      const rate = rates?.find((r) => r.name === e.currentTarget.value);
-      cart.setCurrency(rate);
-    },
-    [cart, rates]
+  const currencyOptions = React.useMemo(
+    () =>
+      cart.currencies.map((v) => ({
+        label: `${v.name} (${v.symbol})`,
+        value: v.name,
+      })) ?? [],
+    [cart]
   );
 
-  React.useEffect(() => {
-    if (cart.currency === undefined) {
-      cart.setCurrency(rates?.[0]);
-    }
-  }, [cart, rates]);
+  const handleOnChangeCurrency = React.useCallback<
+    SelectProps<typeof currencyOptions[number]>["onChange"]
+  >(
+    (option) => {
+      const rate = cart.currencies.find((r) => r.name === option.value);
+      cart.setCurrency(rate);
+    },
+    [cart]
+  );
 
   return (
     <div className="AppBar-container">
       <div className="AppBar-Title-contianer">
-        <div className="AppBar-Title-label">{title}</div>
+        <div className="AppBar-Title-label">{props.title}</div>
 
-        {!!backButton && (
-          <div className="AppBar-BackButton-label" onClick={backButton.onClick}>
-            <ArrowBack className="AppBar-BackButton-icon" />
+        {!!props.backButton && (
+          <div
+            className="AppBar-BackButton-label"
+            onClick={props.backButton.onClick}
+          >
+            <Icon className="AppBar-BackButton-icon" name="ArrowBack" />
 
-            {backButton.text}
+            {props.backButton.text}
           </div>
         )}
       </div>
@@ -57,7 +62,7 @@ const AppBar: FC<AppBarProps> = memo(({ title, backButton }) => {
           <Button
             variant="link"
             color="secondary"
-            icon={<Cart />}
+            icon="Cart"
             onClick={() => history.push("/checkout")}
           >
             CHECKOUT
@@ -67,19 +72,12 @@ const AppBar: FC<AppBarProps> = memo(({ title, backButton }) => {
 
         <div className="AppBar-Actions-Item-container">
           <Select
-            value={cart.currency?.name}
+            selected={cart.currency?.name}
             onChange={handleOnChangeCurrency}
-            options={
-              rates?.map((v) => ({
-                label: `${v.name} (${v.symbol})`,
-                value: v.name,
-              })) ?? []
-            }
+            options={currencyOptions}
           />
         </div>
       </div>
     </div>
   );
-});
-
-export default memo(AppBar);
+}

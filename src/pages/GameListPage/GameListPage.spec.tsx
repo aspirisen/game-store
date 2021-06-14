@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import GameListPage from "./GameListPage";
+import { GameListPage } from "./GameListPage";
 import React from "react";
 
 describe("GameListPage", () => {

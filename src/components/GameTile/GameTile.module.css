@@ -1,0 +1,5 @@
+.gameTile {
+  display: flex;
+  background-color: #1e2131;
+  width: 400px;
+}

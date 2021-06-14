@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as models from "api/models";
 import { CartStorage } from "core/CartStorage";
-import { Button } from "components/Button/Button";
-import { ReactComponent as Cart } from "assets/icons/cart.svg";
+import { Button } from "ui-kit/Button/Button";
+import css from "./GameTile.module.css";
 
 export interface GameTileProps {
   game: models.Game;
@@ -13,13 +13,7 @@ export function GameTile(props: GameTileProps) {
   const price = props.game.price * (cart.currency?.rate ?? 1);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        backgroundColor: "#1e2131",
-        width: 400,
-      }}
-    >
+    <div className={css.gameTile}>
       <div>
         <img
           src={props.game.artworkUrl}
@@ -40,7 +34,7 @@ export function GameTile(props: GameTileProps) {
         <Button
           variant="secondary"
           color="secondary"
-          icon={<Cart />}
+          icon="Cart"
           onClick={() => cart.addItem(props.game)}
         >
           Add to cart{" "}
@@ -52,7 +46,7 @@ export function GameTile(props: GameTileProps) {
         <Button
           variant="secondary"
           color="secondary"
-          icon={<Cart />}
+          icon="Cart"
           onClick={() => cart.removeItem(props.game)}
         >
           Remove from cart

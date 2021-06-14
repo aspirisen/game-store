@@ -1,18 +1,17 @@
-import React, { FC, memo } from "react";
-import AppBar, { AppBarProps } from "./../AppBar/AppBar";
+import * as React from "react";
+import { AppBar, AppBarProps } from "./../AppBar/AppBar";
 import "./styles.css";
 
-const Layout: FC<{
+export interface LayoutProps {
   title: string;
   backButton?: AppBarProps["backButton"];
-}> = memo(({ children, title, backButton }) => {
+}
+
+export function Layout(props: React.PropsWithChildren<LayoutProps>) {
   return (
     <div className="Layout-container">
-      <AppBar title={title} backButton={backButton} />
-
-      <div className="Layout-Children-container">{children}</div>
+      <AppBar title={props.title} backButton={props.backButton} />
+      <div className="Layout-Children-container">{props.children}</div>
     </div>
   );
-});
-
-export default Layout;
+}

@@ -1,11 +1,14 @@
 import * as React from "react";
 import * as models from "api/models";
+import { queryCurrencyRates } from "api/requests";
+import { useRequest } from "./useRequest";
 
 export type Cart = Record<string, number>;
 
 export interface CartStorageState {
   items: Cart;
   currency: models.Currency | undefined;
+  currencies: models.Currency[];
   setCurrency: (currency: models.Currency | undefined) => void;
   totalItems: number;
   addItem: (game: models.Game) => void;
@@ -13,7 +16,9 @@ export interface CartStorageState {
 }
 
 export function CartStorageProvider(props: React.PropsWithChildren<{}>) {
+  const [currencies = []] = useRequest(queryCurrencyRates);
   const [items, setItems] = React.useState<Cart>({});
+
   const [currency, setCurrency] = React.useState<models.Currency | undefined>(
     undefined
   );
@@ -50,9 +55,23 @@ export function CartStorageProvider(props: React.PropsWithChildren<{}>) {
   const totalItems = React.useMemo(() => Object.keys(items).length, [items]);
 
   const value = React.useMemo(
-    () => ({ items, addItem, totalItems, currency, setCurrency, removeItem }),
-    [addItem, items, totalItems, currency, setCurrency, removeItem]
+    () => ({
+      items,
+      addItem,
+      totalItems,
+      currency,
+      currencies,
+      setCurrency,
+      removeItem,
+    }),
+    [addItem, items, totalItems, currency, currencies, setCurrency, removeItem]
   );
+
+  React.useEffect(() => {
+    if (currencies) {
+      setCurrency(currencies[0]);
+    }
+  }, [currencies]);
 
   return (
     <CartStorage.Provider value={value}>{props.children}</CartStorage.Provider>

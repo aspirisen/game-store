@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
-import GameListPage from "./pages/GameListPage/GameListPage";
-import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import { GameListPage } from "pages/GameListPage/GameListPage";
+import { CheckoutPage } from "pages/CheckoutPage/CheckoutPage";
 import "fontsource-roboto";
 import "./mock/server";
 import "./index.css";

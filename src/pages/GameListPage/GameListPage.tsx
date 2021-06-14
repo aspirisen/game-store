@@ -1,16 +1,13 @@
-import React, { memo } from "react";
-import { useRequest } from "core/useRequest";
 import { queryGames } from "api/requests";
-import Layout from "../../components/Layout/Layout";
+import { useRequest } from "core/useRequest";
+import { Layout } from "components/Layout/Layout";
 import { GameTile } from "components/GameTile";
 
-const GameListPage = memo(() => {
+export function GameListPage() {
   const [games, { isLoading }] = useRequest(queryGames);
 
   return (
     <Layout title="Games">
-      <div>[GameListPage]</div>
-
       {isLoading ? (
         "loading"
       ) : (
@@ -21,7 +18,7 @@ const GameListPage = memo(() => {
           }}
         >
           {games?.map((game) => (
-            <div style={{ padding: 5 }}>
+            <div key={game.id} style={{ padding: 5 }}>
               <GameTile key={game.id} game={game} />
             </div>
           ))}
@@ -29,6 +26,4 @@ const GameListPage = memo(() => {
       )}
     </Layout>
   );
-});
-
-export default GameListPage;
+}

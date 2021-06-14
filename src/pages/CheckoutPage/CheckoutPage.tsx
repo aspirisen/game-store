@@ -1,14 +1,14 @@
-import React, { memo } from "react";
-import Layout from "../../components/Layout/Layout";
-import Button from "../../components/Button/Button";
+import * as React from "react";
 import { useHistory } from "react-router-dom";
-import "./styles.css";
+import { Button } from "ui-kit/Button/Button";
 import { CartStorage } from "core/CartStorage";
-import { GameTile } from "components/GameTile";
 import { useRequest } from "core/useRequest";
+import { Layout } from "components/Layout/Layout";
+import { GameTile } from "components/GameTile";
 import { queryGames } from "api/requests";
+import "./styles.css";
 
-const CheckoutPage = memo(() => {
+export function CheckoutPage() {
   const [games] = useRequest(queryGames);
   const cart = React.useContext(CartStorage);
   const history = useHistory();
@@ -25,7 +25,7 @@ const CheckoutPage = memo(() => {
         <div className="CheckoutPage-GameList-container">
           {Object.entries(cart.items).map(([id]) => {
             const game = games?.find((g) => g.id === id);
-            return game && <GameTile game={game} />;
+            return game && <GameTile key={game.id} game={game} />;
           })}
         </div>
 
@@ -57,6 +57,4 @@ const CheckoutPage = memo(() => {
       </div>
     </Layout>
   );
-});
-
-export default CheckoutPage;
+}
