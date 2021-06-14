@@ -3,3 +3,23 @@
   background-color: #1e2131;
   width: 400px;
 }
+
+.avatar {
+  width: 120px;
+  max-height: 120px;
+  padding: 5px;
+}
+
+.gameName {
+  font-size: 14px;
+}
+
+.meta {
+  font-size: 12px;
+}
+
+.highlights {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}

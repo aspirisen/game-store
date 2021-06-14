@@ -4,6 +4,7 @@ import { CartStorage } from "core/CartStorage";
 import { Button } from "ui-kit/Button/Button";
 import { Stars } from "ui-kit/Stars";
 import css from "./GameTile.module.css";
+import { usePrice } from "core/usePrice";
 
 export interface GameTileProps {
   game: models.Game;
@@ -11,26 +12,22 @@ export interface GameTileProps {
 
 export function GameTile(props: GameTileProps) {
   const cart = React.useContext(CartStorage);
-  const price = props.game.price * (cart.currency?.rate ?? 1);
+  const price = usePrice();
 
   return (
     <div className={css.gameTile}>
-      <div>
-        <img
-          src={props.game.artworkUrl}
-          alt="artwork"
-          style={{ width: 100, maxHeight: 100, padding: 5 }}
-        />
+      <div className={css.highlights}>
+        <img src={props.game.artworkUrl} alt="artwork" className={css.avatar} />
         <Stars stars={props.game.rating} />
       </div>
 
       <div>
-        <h2 style={{ fontSize: 12 }}>{props.game.name}</h2>
-        <div>
-          Price: {price.toFixed(2)} {cart.currency?.symbol}
+        <h2 className={css.gameName}>{props.game.name}</h2>
+        <div className={css.meta}>
+          <div>Price: {price.format(props.game.price)}</div>
+          <div>Release date: {props.game.releaseDate}</div>
+          <div>Tags: {props.game.tags.join(", ")}</div>
         </div>
-        <div>{props.game.releaseDate}</div>
-        <div>{props.game.tags.join()}</div>
 
         <Button
           variant="secondary"
