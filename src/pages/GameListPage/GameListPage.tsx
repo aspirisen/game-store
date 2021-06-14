@@ -2,6 +2,7 @@ import { queryGames } from "api/requests";
 import { useRequest } from "core/useRequest";
 import { Layout } from "components/Layout/Layout";
 import { GameTile } from "components/GameTile";
+import css from "./GameListPage.module.css";
 
 export function GameListPage() {
   const [games, { isLoading }] = useRequest(queryGames);
@@ -11,14 +12,9 @@ export function GameListPage() {
       {isLoading ? (
         "loading"
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-          }}
-        >
+        <div className={css.list}>
           {games?.map((game) => (
-            <div key={game.id} style={{ padding: 5 }}>
+            <div key={game.id} className={css.gameTileWrapper}>
               <GameTile key={game.id} game={game} />
             </div>
           ))}

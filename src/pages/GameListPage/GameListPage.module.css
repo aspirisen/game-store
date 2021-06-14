@@ -1,0 +1,8 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gameTileWrapper {
+  padding: 5px;
+}
