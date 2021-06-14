@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useHistory } from "react-router-dom";
+import * as models from "api/models";
 import { Button } from "ui-kit/Button/Button";
 import { CartStorage } from "core/CartStorage";
 import { useRequest } from "core/useRequest";
@@ -20,11 +21,19 @@ export function CheckoutPage() {
     0
   );
 
-  const orderValue = Object.entries(cart.items).reduce(
-    (total, [id, quantity]) =>
-      total + (games?.find((g) => g.id === id)?.price ?? 0) * quantity,
-    0
-  );
+  const orderValue = React.useMemo(() => {
+    const gameById = games?.reduce((hash, game) => {
+      hash[game.id] = game;
+      return hash;
+    }, {} as Record<string, models.Game>);
+
+    const result = Object.entries(cart.items).reduce(
+      (total, [id, quantity]) => total + (gameById?.[id].price ?? 0) * quantity,
+      0
+    );
+
+    return result;
+  }, [cart.items, games]);
 
   return (
     <Layout
