@@ -5,6 +5,7 @@ import { Button } from "ui-kit/Button/Button";
 import { Stars } from "ui-kit/Stars";
 import css from "./GameTile.module.css";
 import { usePrice } from "core/usePrice";
+import { NumberSwitcher } from "ui-kit/NumberSwitcher";
 
 export interface GameTileProps {
   game: models.Game;
@@ -13,6 +14,7 @@ export interface GameTileProps {
 export function GameTile(props: GameTileProps) {
   const cart = React.useContext(CartStorage);
   const price = usePrice();
+  const cartItem = cart.items[props.game.id];
 
   return (
     <div className={css.gameTile}>
@@ -29,26 +31,27 @@ export function GameTile(props: GameTileProps) {
           <div>Tags: {props.game.tags.join(", ")}</div>
         </div>
 
-        <Button
-          variant="secondary"
-          color="secondary"
-          icon="Cart"
-          onClick={() => cart.addItem(props.game)}
-        >
-          Add to cart{" "}
-          {cart.items[props.game.id] !== undefined
-            ? cart.items[props.game.id]
-            : undefined}
-        </Button>
-
-        <Button
-          variant="secondary"
-          color="secondary"
-          icon="Cart"
-          onClick={() => cart.removeItem(props.game)}
-        >
-          Remove from cart
-        </Button>
+        <div className={css.addCart}>
+          {cartItem === undefined || cartItem === 0 ? (
+            <Button
+              variant="secondary"
+              color="secondary"
+              icon="Cart"
+              onClick={() => cart.addItem(props.game)}
+            >
+              Add to cart
+            </Button>
+          ) : (
+            <NumberSwitcher
+              value={cartItem}
+              onChange={(v) =>
+                v === "increase"
+                  ? cart.addItem(props.game)
+                  : cart.removeItem(props.game)
+              }
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export function Stars(props: StarsProps) {
         <Icon
           key={star}
           name="Star"
-          className={star <= props.stars ? css.active : ""}
+          className={star < props.stars ? css.active : ""}
         />
       ))}
     </div>

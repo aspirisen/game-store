@@ -23,3 +23,7 @@
   flex-flow: column;
   align-items: center;
 }
+
+.addCart {
+  padding-top: 15px;
+}
