@@ -2,6 +2,7 @@ import * as React from "react";
 import * as models from "api/models";
 import { CartStorage } from "core/CartStorage";
 import { Button } from "ui-kit/Button/Button";
+import { Stars } from "ui-kit/Stars";
 import css from "./GameTile.module.css";
 
 export interface GameTileProps {
@@ -20,7 +21,7 @@ export function GameTile(props: GameTileProps) {
           alt="artwork"
           style={{ width: 100, maxHeight: 100, padding: 5 }}
         />
-        <div>{props.game.rating}</div>
+        <Stars stars={props.game.rating} />
       </div>
 
       <div>

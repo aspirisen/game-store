@@ -1,0 +1,8 @@
+.stars {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.active path {
+  fill: #ffd700;
+}

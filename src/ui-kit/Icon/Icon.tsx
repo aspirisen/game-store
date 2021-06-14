@@ -7,5 +7,5 @@ export interface IconProps {
 
 export function Icon(props: IconProps) {
   const Component = list[props.name];
-  return <Component />;
+  return <Component {...props} />;
 }
